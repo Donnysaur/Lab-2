@@ -1,37 +1,45 @@
 #include <iostream>
 #include <cstdlib>
+
 using namespace std;
 
-typedef int* IntPtr; // IntPtr is now an alias for int*
+// Define a type alias for int pointer
+typedef int* IntPtr;
 
-void sneaky(IntPtr temp); // Function prototype
+// Function declarations
+void sneaky(IntPtr temp);
+void sneaky2(IntPtr temp);
 
 int main()
 {
-    IntPtr p;          // Declare a pointer to int
-    p = new int;       // Dynamically allocate memory for an int
-    *p = 77;           // Store value 77 at the memory location pointed to by p
+    // Create a pointer to int
+    IntPtr p;
+    p = new int;      // Allocate memory
+    *p = 77;          // Store value in allocated memory
 
     cout << "Value pointed to by p: " << *p << endl;
 
-    IntPtr q;          // Declare another pointer to int
-    q = p;             // q now points to the same memory as p
-
-    *q = 88;           // Change the value at that memory location using q
-    cout << "Value pointed to by p after using q: " << *p << endl;
-
-    sneaky(p);         // Call function to modify the value again
-
+    sneaky(p);        // First change using sneaky
     cout << "Value pointed to by p after sneaky: " << *p << endl;
 
-    delete p;          // Free the allocated memory
+    sneaky2(p);       // Second change using sneaky2
+    cout << "Value pointed to by p after sneaky2: " << *p << endl;
 
+    delete p;         // Free memory
     system("pause");
     return 0;
 }
 
+// Function to change value using pointer
 void sneaky(IntPtr temp)
 {
-    *temp = 99;        // Modify the value pointed to by temp
+    *temp = 99;
     cout << "Value pointed to by temp inside sneaky: " << *temp << endl;
+}
+
+// Another function to change value using pointer
+void sneaky2(IntPtr temp)
+{
+    *temp = 123;
+    cout << "Value pointed to by temp inside sneaky2: " << *temp << endl;
 }
