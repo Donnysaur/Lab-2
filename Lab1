@@ -1,37 +1,37 @@
 #include <iostream>
 #include <cstdlib>
-
 using namespace std;
 
-typedef int* IntPtr;
+typedef int* IntPtr; // IntPtr is now an alias for int*
 
-void sneaky(IntPtr temp);
+void sneaky(IntPtr temp); // Function prototype
 
 int main()
 {
-    IntPtr p;
-    p = new int;   // dynamically allocate memory
-    *p = 77;       // store 77 in that memory
+    IntPtr p;          // Declare a pointer to int
+    p = new int;       // Dynamically allocate memory for an int
+    *p = 77;           // Store value 77 at the memory location pointed to by p
 
     cout << "Value pointed to by p: " << *p << endl;
 
-    sneaky(p);     // modifies the value to 99
+    IntPtr q;          // Declare another pointer to int
+    q = p;             // q now points to the same memory as p
+
+    *q = 88;           // Change the value at that memory location using q
+    cout << "Value pointed to by p after using q: " << *p << endl;
+
+    sneaky(p);         // Call function to modify the value again
+
     cout << "Value pointed to by p after sneaky: " << *p << endl;
 
-    // Add another pointer q and modify the value again
-    IntPtr q = p;  // q points to the same memory as p
-    *q = 123;      // change the value using q
+    delete p;          // Free the allocated memory
 
-    cout << "Value pointed to by p after using q: " << *p << endl;
-    cout << "Value pointed to by q: " << *q << endl;
-
-    delete p;      // free the allocated memory
     system("pause");
     return 0;
 }
 
 void sneaky(IntPtr temp)
 {
-    *temp = 99;
-    cout << "Value pointed to by temp (inside sneaky): " << *temp << endl;
+    *temp = 99;        // Modify the value pointed to by temp
+    cout << "Value pointed to by temp inside sneaky: " << *temp << endl;
 }
