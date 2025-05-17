@@ -2,24 +2,36 @@
 #include <cstdlib>
 
 using namespace std;
+
 typedef int* IntPtr;
+
 void sneaky(IntPtr temp);
 
 int main()
 {
-	IntPtr p;
-	p = new int;
-	*p = 77;
-	cout << "Value point to by p: " << *p << endl;
-	sneaky(p);
-	cout << "Value point to by p: " << *p << endl;
-	system("pause");
+    IntPtr p;
+    p = new int;   // dynamically allocate memory
+    *p = 77;       // store 77 in that memory
 
+    cout << "Value pointed to by p: " << *p << endl;
+
+    sneaky(p);     // modifies the value to 99
+    cout << "Value pointed to by p after sneaky: " << *p << endl;
+
+    // Add another pointer q and modify the value again
+    IntPtr q = p;  // q points to the same memory as p
+    *q = 123;      // change the value using q
+
+    cout << "Value pointed to by p after using q: " << *p << endl;
+    cout << "Value pointed to by q: " << *q << endl;
+
+    delete p;      // free the allocated memory
+    system("pause");
+    return 0;
 }
 
 void sneaky(IntPtr temp)
 {
-	*temp = 99;
-	cout << "Value point to by temp: " << *temp << endl;
-
+    *temp = 99;
+    cout << "Value pointed to by temp (inside sneaky): " << *temp << endl;
 }
